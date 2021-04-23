@@ -9,11 +9,18 @@ const spriteWidth = 575;
 const spriteHeight = 523;
 let frameX = 0;
 let frameY = 0;
+let gameFrame = 0;
 
 function animate() {
   ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
   // ctx.fillRect(100, 50, 100, 100);
   ctx.drawImage(playerImage, frameX * spriteWidth, frameY * spriteHeight, spriteWidth, spriteHeight, 0, 0, spriteWidth, spriteHeight);
+  if (gameFrame % 2 === 0) {
+    if (frameX < 6) frameX++;
+    else frameX = 0;
+  }
+
+  gameFrame++;
   requestAnimationFrame(animate);
 }
 
