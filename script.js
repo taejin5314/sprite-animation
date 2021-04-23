@@ -1,3 +1,9 @@
+let playerState = 'idle'
+const dropdown = document.getElementById('animations');
+dropdown.addEventListener('change', function (e) {
+  playerState = e.target.value;
+})
+
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
 const CANVAS_WIDTH = canvas.width = 600;
@@ -7,11 +13,12 @@ const playerImage = new Image();
 playerImage.src = 'shadow_dog.png';
 const spriteWidth = 575;
 const spriteHeight = 523;
-let playerState = 'jump'
+
 let frameX = 0;
 let frameY = 0;
 let gameFrame = 0;
-const staggerFrame = 2;
+// control the speed of animation
+const staggerFrame = 3;
 const spriteAnimations = [];
 const animationStates = [
   {
