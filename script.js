@@ -7,6 +7,7 @@ const playerImage = new Image();
 playerImage.src = 'shadow_dog.png';
 const spriteWidth = 575;
 const spriteHeight = 523;
+let playerState = 'jump'
 let frameX = 0;
 let frameY = 0;
 let gameFrame = 0;
@@ -18,11 +19,11 @@ const animationStates = [
     frames: 7,
   },
   {
-    name: 'jumpUp',
+    name: 'jump',
     frames: 7,
   },
   {
-    name: 'jumpDown',
+    name: 'fall',
     frames: 7,
   },
   {
@@ -38,8 +39,20 @@ const animationStates = [
     frames: 5,
   },
   {
-    name: 'rumble',
+    name: 'roll',
     frames: 7,
+  },
+  {
+    name: 'bite',
+    frames: 7,
+  },
+  {
+    name: 'ko',
+    frames: 12,
+  },
+  {
+    name: 'getHit',
+    frames: 4,
   },
 ];
 animationStates.forEach((state, index) => {
@@ -57,9 +70,10 @@ console.log(spriteAnimations);
 
 function animate() {
   ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-  let position = Math.floor(gameFrame / staggerFrame) % spriteAnimations['idle'].loc.length;
-  frameX = spriteWidth * position;
-  ctx.drawImage(playerImage, frameX, frameY * spriteHeight, spriteWidth, spriteHeight, 0, 0, spriteWidth, spriteHeight);
+  let position = Math.floor(gameFrame / staggerFrame) % spriteAnimations[playerState].loc.length;
+  frameX = spriteAnimations[playerState].loc[position].x;
+  frameY = spriteAnimations[playerState].loc[position].y;
+  ctx.drawImage(playerImage, frameX, frameY, spriteWidth, spriteHeight, 0, 0, spriteWidth, spriteHeight);
   if (gameFrame % staggerFrame === 0) {
     if (frameX < 6) frameX++;
     else frameX = 0;
